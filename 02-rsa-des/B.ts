@@ -1,6 +1,6 @@
-import { Bit, Bits, chunkBy, flatten, log, padStart, slice, toBigInt, toBitArray, Tuple } from "../lib.ts";
-import { flow, fork, leaf, map } from "../fp.ts";
-import { calculatePrivateKey, decrypt, order, verify } from "../rsa.ts";
+import { Bit, Bits, chunkBy, flatten, log, order, padStart, slice, toBigInt, toBitArray, Tuple } from "../lib/lib.ts";
+import { flow, fork, leaf, map } from "../lib/fp.ts";
+import { calculatePrivateKey, decrypt, verify } from "../lib/rsa.ts";
 import * as A from "./A.ts";
 
 console.log("----- Config B -----");
@@ -78,7 +78,7 @@ export function receive(
         chunkBy(8),
         map((value: Bit[]) => String.fromCharCode(parseInt(value.join(""), 2))),
         (value: string[]) => value.join(""),
-        // log<string>("Decoded"),
+        log<string>("Decoded"),
     )(encryptedMessage);
 
     return decrypted;

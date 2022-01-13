@@ -1,5 +1,12 @@
 import { Bits, bitsToNumber, bitsXOr, numberToBits, Tuple } from "./lib.ts";
 
+type OneToThree = 0 | 1 | 2 | 3;
+type SboxConfiguration = [
+    [OneToThree, OneToThree, OneToThree, OneToThree],
+    [OneToThree, OneToThree, OneToThree, OneToThree],
+];
+type SboxConfigurations<N extends number> = Tuple<SboxConfiguration, N>;
+
 const split = <Length extends number, ToLength extends number>(
     value: Bits<Length>,
     toLength: ToLength,
@@ -11,14 +18,7 @@ const split = <Length extends number, ToLength extends number>(
 const sbox = (definition: SboxConfiguration, values: Bits<3>): Bits<2> =>
     numberToBits(definition[values[0]][bitsToNumber(values.slice(1))], 2);
 
-type OneToThree = 0 | 1 | 2 | 3;
-type SboxConfiguration = [
-    [OneToThree, OneToThree, OneToThree, OneToThree],
-    [OneToThree, OneToThree, OneToThree, OneToThree],
-];
-type SboxConfigurations<N extends number> = Tuple<SboxConfiguration, N>;
-
-export const minides = (
+export const createMiniDES = (
     config: { expand: (value: Bits<4>) => Bits<6>; sBoxes: SboxConfigurations<2> },
 ) => (key: Bits<6>, value: Bits<4>): Bits<4> =>
     split(bitsXOr(config.expand(value), key), 3)

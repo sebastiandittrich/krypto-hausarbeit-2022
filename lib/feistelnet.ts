@@ -1,4 +1,3 @@
-import { minides } from "./minides.ts";
 import { Bits, bitsXOr } from "./lib.ts";
 
 export class FeistelNet<Length extends number, KeyLength extends number> {
@@ -18,28 +17,3 @@ export class FeistelNet<Length extends number, KeyLength extends number> {
         );
     }
 }
-
-const taskTwoDES = minides({
-    expand: ([one, two, three, four]) => [one, one, two, three, three, four],
-    sBoxes: [
-        [
-            [1, 0, 2, 3],
-            [3, 2, 0, 1],
-        ],
-        [
-            [2, 3, 0, 1],
-            [1, 2, 3, 0],
-        ],
-    ],
-});
-
-const minidesnet = new FeistelNet<4, 6>(taskTwoDES);
-
-// console.log(minidesnet.forwards(
-//     [
-//         [1, 1, 1, 1, 1, 1],
-//         [1, 1, 1, 0, 1, 1],
-//         [0, 1, 1, 1, 0, 0],
-//     ],
-//     [[0, 0, 0, 0], [0, 0, 0, 0]],
-// ));

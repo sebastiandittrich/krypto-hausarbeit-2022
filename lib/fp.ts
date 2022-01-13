@@ -61,12 +61,3 @@ export const flow: flow = _flow as unknown as flow;
 export const leaf: leaf = _leaf as unknown as leaf;
 export const map: map = _map as unknown as map;
 export const fork: forkAndJoin = _fork as unknown as forkAndJoin;
-
-// const res = flow(
-//     (number: number) => number + 1,
-//     fork({
-//         string: (value: number) => value.toString(),
-//         number: (value: number) => value,
-//         bin: (value: number) => value.toString(2).split(""),
-//     }),
-// );
